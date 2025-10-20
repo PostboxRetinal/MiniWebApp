@@ -1,0 +1,161 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-10-20T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2024.6.0",
+  "resources": [
+    {
+      "_id": "wrk_miniwebapp",
+      "_type": "workspace",
+      "name": "MiniWebApp API",
+      "description": "API collection for testing MiniWebApp Flask application"
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:5000"
+      },
+      "parentId": "wrk_miniwebapp"
+    },
+    {
+      "_id": "fld_users",
+      "_type": "request_group",
+      "name": "Users",
+      "parentId": "wrk_miniwebapp"
+    },
+    {
+      "_id": "req_get_users",
+      "_type": "request",
+      "name": "Get All Users",
+      "method": "GET",
+      "url": "{{ base_url }}/api/users",
+      "parentId": "fld_users"
+    },
+    {
+      "_id": "req_get_user",
+      "_type": "request",
+      "name": "Get User by ID",
+      "method": "GET",
+      "url": "{{ base_url }}/api/users/1",
+      "parentId": "fld_users",
+      "description": "Replace 1 with actual user ID"
+    },
+    {
+      "_id": "req_create_user",
+      "_type": "request",
+      "name": "Create User",
+      "method": "POST",
+      "url": "{{ base_url }}/api/users",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"username\": \"johndoe\",\n  \"password\": \"password123\"\n}"
+      },
+      "parentId": "fld_users"
+    },
+    {
+      "_id": "req_update_user",
+      "_type": "request",
+      "name": "Update User",
+      "method": "PUT",
+      "url": "{{ base_url }}/api/users/1",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"username\": \"janedoe\",\n  \"password\": \"newpassword\"\n}"
+      },
+      "parentId": "fld_users",
+      "description": "Replace 1 with actual user ID"
+    },
+    {
+      "_id": "req_delete_user",
+      "_type": "request",
+      "name": "Delete User",
+      "method": "DELETE",
+      "url": "{{ base_url }}/api/users/1",
+      "parentId": "fld_users",
+      "description": "Replace 1 with actual user ID"
+    },
+    {
+      "_id": "fld_products",
+      "_type": "request_group",
+      "name": "Products",
+      "parentId": "wrk_miniwebapp"
+    },
+    {
+      "_id": "req_get_products",
+      "_type": "request",
+      "name": "Get All Products",
+      "method": "GET",
+      "url": "{{ base_url }}/api/products",
+      "parentId": "fld_products"
+    },
+    {
+      "_id": "req_get_product",
+      "_type": "request",
+      "name": "Get Product by ID",
+      "method": "GET",
+      "url": "{{ base_url }}/api/products/1",
+      "parentId": "fld_products",
+      "description": "Replace 1 with actual product ID"
+    },
+    {
+      "_id": "req_create_product",
+      "_type": "request",
+      "name": "Create Product",
+      "method": "POST",
+      "url": "{{ base_url }}/api/products",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Sample Product\",\n  \"description\": \"A sample product description\",\n  \"price\": 100\n}"
+      },
+      "parentId": "fld_products"
+    },
+    {
+      "_id": "req_update_product",
+      "_type": "request",
+      "name": "Update Product",
+      "method": "PUT",
+      "url": "{{ base_url }}/api/products/1",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Updated Product\",\n  \"description\": \"Updated description\",\n  \"price\": 150\n}"
+      },
+      "parentId": "fld_products",
+      "description": "Replace 1 with actual product ID"
+    },
+    {
+      "_id": "req_delete_product",
+      "_type": "request",
+      "name": "Delete Product",
+      "method": "DELETE",
+      "url": "{{ base_url }}/api/products/1",
+      "parentId": "fld_products",
+      "description": "Replace 1 with actual product ID"
+    }
+  ]
+}
