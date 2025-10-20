@@ -147,3 +147,137 @@ function deleteUser(userId) {
         });
     }
 }
+
+function getProducts() {
+    fetch('/api/products')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+            var productListBody = document.querySelector('#product-list tbody');
+            productListBody.innerHTML = '';
+
+            data.forEach(product => {
+                var row = document.createElement('tr');
+
+                var nameCell = document.createElement('td');
+                nameCell.textContent = product.name;
+                row.appendChild(nameCell);
+
+                var descCell = document.createElement('td');
+                descCell.textContent = product.description || '';
+                row.appendChild(descCell);
+
+                var priceCell = document.createElement('td');
+                priceCell.textContent = product.price;
+                row.appendChild(priceCell);
+
+                var actionsCell = document.createElement('td');
+
+                // Edit link
+                var editLink = document.createElement('a');
+                editLink.href = `/edit_product/${product.id}`;
+                editLink.textContent = 'Edit';
+                editLink.className = 'btn btn-primary mr-2';
+                actionsCell.appendChild(editLink);
+
+                // Delete button
+                var deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.className = 'btn btn-danger';
+                deleteBtn.addEventListener('click', function() {
+                    deleteProduct(product.id);
+                });
+                actionsCell.appendChild(deleteBtn);
+
+                row.appendChild(actionsCell);
+
+                productListBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function createProduct() {
+    var data = {
+        name: document.getElementById('product-name').value,
+        description: document.getElementById('product-description').value,
+        price: document.getElementById('product-price').value
+    };
+
+    fetch('/api/products', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        // Clear form
+        document.getElementById('add-product-form').reset();
+        // Reload products
+        getProducts();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function updateProduct() {
+    var productId = document.getElementById('product-id').value;
+    var data = {
+        name: document.getElementById('product-name').value,
+        description: document.getElementById('product-description').value,
+        price: document.getElementById('product-price').value
+    };
+
+    fetch(`/api/products/${productId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+        // Redirect to home or show message
+        window.location.href = '/';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function deleteProduct(productId) {
+    if (confirm('Are you sure you want to delete this product?')) {
+        fetch(`/api/products/${productId}`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Product deleted successfully:', data);
+            getProducts();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+}
