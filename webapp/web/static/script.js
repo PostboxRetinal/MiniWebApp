@@ -174,14 +174,12 @@ function getProducts() {
 
                 var actionsCell = document.createElement('td');
 
-                // Edit link
                 var editLink = document.createElement('a');
                 editLink.href = `/edit_product/${product.id}`;
                 editLink.textContent = 'Edit';
                 editLink.className = 'btn btn-primary mr-2';
                 actionsCell.appendChild(editLink);
 
-                // Delete button
                 var deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'Delete';
                 deleteBtn.className = 'btn btn-danger';
@@ -220,9 +218,7 @@ function createProduct() {
     })
     .then(data => {
         console.log(data);
-        // Clear form
         document.getElementById('add-product-form').reset();
-        // Reload products
         getProducts();
     })
     .catch(error => {
@@ -253,7 +249,6 @@ function updateProduct() {
     })
     .then(data => {
         console.log(data);
-        // Redirect to home or show message
         window.location.href = '/';
     })
     .catch(error => {

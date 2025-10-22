@@ -11,7 +11,6 @@ def get_products():
     result = [{'id': product.id, 'name': product.name, 'description': product.description, 'price': product.price} for product in products]
     return jsonify(result)
 
-# Get single product by id
 @product_controller.route('/api/products/<int:product_id>', methods=['GET'])
 def get_product(product_id):
     print("obteniendo producto")
@@ -31,7 +30,6 @@ def create_product():
     db.session.commit()
     return jsonify({'message': 'Product created successfully'}), 201
 
-# Update an existing product
 @product_controller.route('/api/products/<int:product_id>', methods=['PUT'])
 def update_product(product_id):
     print("actualizando producto")
@@ -48,7 +46,6 @@ def update_product(product_id):
     db.session.commit()
     return jsonify({'message': 'Product updated successfully'})
 
-# Delete an existing product
 @product_controller.route('/api/products/<int:product_id>', methods=['DELETE'])
 def delete_product(product_id):
     product = Product.query.get_or_404(product_id)
